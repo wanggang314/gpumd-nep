@@ -32,7 +32,7 @@ run           10000000
 建议进行多次独立的HNEMD模拟获得标准误差。
 在此教程中只进行了一次HNEMD模拟（后续补充计算），模拟结果见下图。这一结果与实验值存在显著偏差，表明NEP89模型的开箱即用在无需额外微调的情况下，用于计算石墨烯的热导率并不理想。
 
-![hnemd.png](C:\Users\wanggang\Desktop\nep89微调\1_C_hnemd\1\hnemd.png "hnemd.png")
+![hnemd.png](C:\Users\wanggang\Desktop\Git_hub\nep89_fine_tune\1_C_hnemd\1\hnemd.png "hnemd.png")
 ### 利用NEP89模型生成微调训练集
 
 为提高准确性，可以使用一小部分密度泛函理论计算（DFT）对NEP89进行微调，以生成专为石墨烯定制的构型
@@ -138,7 +138,7 @@ generation 1000
 ```
 与标准的**nep.in**文件相比，增加了**prediction 1**用于启用GPUMD的预测功能。  
 脚本**Plot_prediction.py**可将预测结果可视化。  
- ![prediction](C:\Users\wanggang\Desktop\nep89微调\4_prediction\prediction.png)
+ ![prediction](C:\Users\wanggang\Desktop\Git_hub\nep89_fine_tune\4_prediction\prediction.png)
 
 预测结果存在一定程度偏差，这一问题可通过微调得到有效解决。
 ### 开始微调
@@ -182,17 +182,17 @@ generation 20000
 微调后，使用脚本**plot_RMSE.py**可视化均方根误差（RMSE）的变化  
  以下给出微调5000步和20000步的变化  
 **5000步：**  
-![RMSE.png](C:\Users\wanggang\Desktop\nep89微调\5_fine_tune\fine_tune_5000\RMSE.png)
+![RMSE.png](C:\Users\wanggang\Desktop\Git_hub\nep89_fine_tune\5_fine_tune\fine_tune_5000\RMSE.png)
 ---
 **20000步：**
-![RMSE.png](C:\Users\wanggang\Desktop\nep89微调\5_fine_tune\fine_tune_20000\RMSE.png)  
+![RMSE.png](C:\Users\wanggang\Desktop\Git_hub\nep89_fine_tune\5_fine_tune\fine_tune_20000\RMSE.png)  
 在获得不同微调步数的势函数模型后，读者可以验证相应的物理性质。  
 >- 还可以测试自己系统中**微调步数**与其产生的**物理性质**之间的关系。  
 >- 此案例还未测试不同**微调步数**下石墨烯热导率计算值的变化[**后续补充**]() 
 ## 使用微调模型重新计算石墨烯热导率
-在此案例中，经过16000步微调的势函数模型，在石墨烯的热导率计算中与参考值的一致性最佳。  
+在此案例中，经过18000步微调的势函数模型，在石墨烯的热导率计算中与参考值的一致性最佳。  
 使用微调后的势函数模型计算石墨烯热导率。（应多次独立计算取平均以减少标准误差）  
-以下仅展示微调**16000步**的模型在石墨烯的热导率计算中的平均结果(2次独立计算)：  
+以下仅展示微调**18000步**的模型在石墨烯的热导率计算中的平均结果(2次独立计算)：  
 **Kappa_y=1701.3141 ± 0.0000 W/mK**  
 ![hnemd_ave.png](C:\Users\wanggang\Desktop\nep89微调\6_fine_tune_TC\hnemd_ave.png)
 
